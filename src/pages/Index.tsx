@@ -97,17 +97,21 @@ const Index = () => {
       <ProductGrid 
         title="Only a Few Pieces Left" 
         products={fewPiecesLeft}
+        background="gray"
       />
       
       <ProductGrid 
         title="Extended Tees Collection" 
         products={extendedTees}
+        variant="secondary"
         showViewAll={false}
+        background="white"
       />
       
       <ProductGrid 
         title="Best Sellers" 
         products={bestSellers}
+        background="gray"
       />
       
       <FeaturedSection />
