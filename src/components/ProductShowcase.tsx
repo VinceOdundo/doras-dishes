@@ -3,18 +3,18 @@ const ProductShowcase = () => {
   const showcaseItems = [
     {
       id: 1,
-      title: "Revenant Sacred Sand Set",
-      description: "Drawing from the mystic duality of light and shadow, this design captures the eternal dance between the sacred and the profane. Crafted with premium materials and attention to detail.",
-      price: "$165.00",
-      image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&h=400&fit=crop",
+      title: "Traditional African Cuisine Photography",
+      description: "Stunning visual documentation of authentic Luo, Kenyan, and Swahili dishes. Each photograph captures the rich colors, textures, and cultural significance of traditional African cuisine, available as high-quality prints and digital downloads.",
+      price: "$45.00",
+      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop",
       reverse: false
     },
     {
       id: 2,
-      title: "Urban Streetwear Collection",
-      description: "Bold designs that speak to the modern urban lifestyle. Each piece tells a story of resilience, creativity, and authentic self-expression in the concrete jungle.",
-      price: "$95.00",
-      image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&h=400&fit=crop",
+      title: "Custom Catering & Cooking Services",
+      description: "Experience Dora's exceptional culinary skills with custom catering for special events. From traditional African dishes to international fusion cuisine, every meal is crafted with love and presented beautifully.",
+      price: "$125.00",
+      image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=600&h=400&fit=crop",
       reverse: true
     }
   ];
@@ -35,11 +35,11 @@ const ProductShowcase = () => {
                 />
               </div>
               <div className={`max-w-[500px] ${item.reverse ? 'lg:col-start-1' : ''}`}>
-                <h3 className="text-4xl font-bold text-black mb-4">{item.title}</h3>
+                <h3 className="text-4xl font-bold text-gray-900 mb-4">{item.title}</h3>
                 <p className="text-lg text-gray-700 leading-relaxed mb-6">{item.description}</p>
-                <div className="text-3xl font-bold text-black mb-8">{item.price}</div>
-                <button className="inline-block px-8 py-4 bg-black text-white font-semibold hover:bg-gray-800 transition-colors duration-200">
-                  SHOP NOW →
+                <div className="text-3xl font-bold text-orange-600 mb-8">{item.price}</div>
+                <button className="inline-block px-8 py-4 bg-orange-600 text-white font-semibold hover:bg-orange-700 transition-colors duration-200 rounded-md">
+                  ORDER NOW →
                 </button>
               </div>
             </div>
