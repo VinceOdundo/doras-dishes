@@ -6,6 +6,9 @@ import ProductGrid from "../components/ProductGrid";
 import ProductShowcase from "../components/ProductShowcase";
 import PromoSection from "../components/PromoSection";
 import FeaturedSection from "../components/FeaturedSection";
+import Stats from "../components/Stats";
+import Testimonials from "../components/Testimonials";
+import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 
 const Index = () => {
@@ -96,6 +99,7 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <Hero />
+      <Stats />
       <BrandStatement />
       
       <ProductGrid 
@@ -120,8 +124,10 @@ const Index = () => {
         background="gray"
       />
       
+      <Testimonials />
       <PromoSection />
       <FeaturedSection />
+      <Newsletter />
       <Footer />
     </div>
   );
