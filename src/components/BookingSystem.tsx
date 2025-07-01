@@ -7,9 +7,26 @@ interface BookingSystemProps {
   onClose: () => void;
 }
 
+interface ContactInfo {
+  name: string;
+  email: string;
+  phone: string;
+}
+
+interface BookingData {
+  serviceType: string;
+  date: string;
+  time: string;
+  duration: string;
+  location: string;
+  guestCount: string;
+  specialRequests: string;
+  contactInfo: ContactInfo;
+}
+
 const BookingSystem = ({ service, onClose }: BookingSystemProps) => {
   const [step, setStep] = useState(1);
-  const [bookingData, setBookingData] = useState({
+  const [bookingData, setBookingData] = useState<BookingData>({
     serviceType: '',
     date: '',
     time: '',
@@ -46,8 +63,8 @@ const BookingSystem = ({ service, onClose }: BookingSystemProps) => {
       const [parent, child] = field.split('.');
       setBookingData(prev => ({
         ...prev,
-        [parent]: {
-          ...prev[parent as keyof typeof prev],
+        contactInfo: {
+          ...prev.contactInfo,
           [child]: value
         }
       }));
@@ -58,7 +75,6 @@ const BookingSystem = ({ service, onClose }: BookingSystemProps) => {
 
   const handleSubmit = () => {
     console.log('Booking submitted:', bookingData);
-    // Handle booking submission
     alert('Booking request submitted! Dora will contact you within 24 hours.');
     onClose();
   };

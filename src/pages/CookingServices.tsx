@@ -1,12 +1,12 @@
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import BookingSystem from "../components/BookingSystem";
 import { ChefHat, Clock, Users, Star, MapPin, Calendar, Phone, Mail } from "lucide-react";
 import { useState } from "react";
 
 const CookingServices = () => {
-  const [selectedService, setSelectedService] = useState("catering");
-  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
   const services = [
     {
@@ -82,7 +82,7 @@ const CookingServices = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
-                  onClick={() => setShowBookingForm(true)}
+                  onClick={() => setShowBooking(true)}
                   className="px-8 py-4 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors"
                 >
                   Book a Service
@@ -152,8 +152,11 @@ const CookingServices = () => {
                   ))}
                 </ul>
                 
-                <button className="w-full px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors">
-                  Learn More
+                <button 
+                  onClick={() => setShowBooking(true)}
+                  className="w-full px-6 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors"
+                >
+                  Book Now
                 </button>
               </div>
             ))}
@@ -248,9 +251,12 @@ const CookingServices = () => {
             Let's create something delicious together. Contact us to discuss your event and menu preferences.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+            <button 
+              onClick={() => setShowBooking(true)}
+              className="px-8 py-4 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            >
               <Phone className="w-5 h-5 inline mr-2" />
-              Call Now
+              Book Now
             </button>
             <button className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-orange-600 transition-colors">
               <Mail className="w-5 h-5 inline mr-2" />
@@ -261,6 +267,13 @@ const CookingServices = () => {
       </section>
 
       <Footer />
+      
+      {showBooking && (
+        <BookingSystem 
+          service="cooking" 
+          onClose={() => setShowBooking(false)} 
+        />
+      )}
     </div>
   );
 };
