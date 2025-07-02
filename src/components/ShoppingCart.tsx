@@ -1,15 +1,8 @@
 
 import { X, Plus, Minus, ShoppingBag, Trash2 } from "lucide-react";
-import { useState } from "react";
-
-interface CartItem {
-  id: string;
-  title: string;
-  price: number;
-  image: string;
-  quantity: number;
-  category: string;
-}
+import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 interface ShoppingCartProps {
   isOpen: boolean;
@@ -17,42 +10,8 @@ interface ShoppingCartProps {
 }
 
 const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: "1",
-      title: "Wildlife Photography Collection",
-      price: 25.00,
-      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027?w=100&h=100&fit=crop",
-      quantity: 1,
-      category: "Photography"
-    },
-    {
-      id: "2",
-      title: "Custom Luo Dishes",
-      price: 35.00,
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=100&h=100&fit=crop",
-      quantity: 2,
-      category: "Catering"
-    }
-  ]);
-
-  const updateQuantity = (id: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      setCartItems(cartItems.filter(item => item.id !== id));
-    } else {
-      setCartItems(cartItems.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ));
-    }
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
-  const tax = subtotal * 0.08; // 8% tax
-  const total = subtotal + tax;
+  const { cartItems, updateQuantity, removeFromCart, subtotal, tax, total, checkout, loading } = useCart();
+  const { user } = useAuth();
 
   if (!isOpen) return null;
 
@@ -119,7 +78,7 @@ const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
                             ${(item.price * item.quantity).toFixed(2)}
                           </span>
                           <button
-                            onClick={() => removeItem(item.id)}
+                            onClick={() => removeFromCart(item.id)}
                             className="p-1 hover:bg-red-50 text-red-500 rounded-full transition-colors"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -152,10 +111,25 @@ const ShoppingCart = ({ isOpen, onClose }: ShoppingCartProps) => {
               </div>
               
               <div className="space-y-2">
-                <button className="w-full bg-orange-600 text-white py-3 rounded-xl font-semibold hover:bg-orange-700 transition-colors">
-                  Checkout
-                </button>
-                <button className="w-full border border-gray-300 text-gray-700 py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+                {user ? (
+                  <button 
+                    onClick={checkout}
+                    disabled={loading}
+                    className="w-full bg-orange-600 text-white py-3 rounded-xl font-semibold hover:bg-orange-700 transition-colors disabled:opacity-50"
+                  >
+                    {loading ? 'Processing...' : 'Checkout'}
+                  </button>
+                ) : (
+                  <Link to="/auth" className="block">
+                    <button className="w-full bg-orange-600 text-white py-3 rounded-xl font-semibold hover:bg-orange-700 transition-colors">
+                      Sign in to Checkout
+                    </button>
+                  </Link>
+                )}
+                <button 
+                  onClick={onClose}
+                  className="w-full border border-gray-300 text-gray-700 py-3 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                >
                   Continue Shopping
                 </button>
               </div>

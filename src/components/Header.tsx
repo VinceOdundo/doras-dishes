@@ -1,13 +1,16 @@
-import { Search, ShoppingBag, Menu, User, Heart, Camera, ChefHat } from "lucide-react";
+import { Search, ShoppingBag, Menu, User, Heart, Camera, ChefHat, LogIn } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/hooks/useCart";
 import ShoppingCart from "./ShoppingCart";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(2);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
+  const { cartCount } = useCart();
 
   const navigationItems = [
     { name: 'Photography', path: '/photography' },
@@ -59,7 +62,15 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <Search className="w-6 h-6 text-gray-700 hover:text-orange-600 hover:scale-110 cursor-pointer transition-all duration-200" />
             <Heart className="w-6 h-6 text-gray-700 hover:text-orange-600 hover:scale-110 cursor-pointer transition-all duration-200" />
-            <User className="w-6 h-6 text-gray-700 hover:text-orange-600 hover:scale-110 cursor-pointer transition-all duration-200" />
+            {user ? (
+              <Link to="/dashboard">
+                <User className="w-6 h-6 text-gray-700 hover:text-orange-600 hover:scale-110 cursor-pointer transition-all duration-200" />
+              </Link>
+            ) : (
+              <Link to="/auth">
+                <LogIn className="w-6 h-6 text-gray-700 hover:text-orange-600 hover:scale-110 cursor-pointer transition-all duration-200" />
+              </Link>
+            )}
             <div className="relative">
               <ShoppingBag 
                 className="w-6 h-6 text-gray-700 hover:text-orange-600 hover:scale-110 cursor-pointer transition-all duration-200" 
