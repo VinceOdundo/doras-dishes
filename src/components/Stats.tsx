@@ -1,8 +1,10 @@
 
 import { Camera, ChefHat, Users, Award, MapPin, Calendar } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const Stats = () => {
+  const { getSetting } = useSiteSettings();
   const [counters, setCounters] = useState({
     photos: 0,
     clients: 0,
@@ -11,10 +13,10 @@ const Stats = () => {
   });
 
   const finalStats = {
-    photos: 300000,
-    clients: 500,
-    events: 25,
-    years: 15
+    photos: Number(getSetting('hero_photos_count', '300000')),
+    clients: Number(getSetting('stats_clients_count', '500')),
+    events: Number(getSetting('stats_events_count', '25')),
+    years: Number(getSetting('brand_experience_years', '15'))
   };
 
   useEffect(() => {

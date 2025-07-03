@@ -1,4 +1,12 @@
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+
 const BrandStatement = () => {
+  const { getSetting } = useSiteSettings();
+
+  const experienceYears = getSetting('brand_experience_years', '15');
+  const photosCount = getSetting('hero_photos_count', '300000');
+  const brandDescription = getSetting('brand_description', 'Dora Abong\'o brings together her rich heritage from Siaya, Kenya, and her life in Missouri through two extraordinary passions: capturing life\'s most precious moments and creating culinary experiences that tell stories across cultures.');
+
   return (
     <section className="py-24 bg-gradient-to-br from-orange-50 to-amber-50 relative overflow-hidden">
       {/* Background Pattern */}
@@ -24,21 +32,21 @@ const BrandStatement = () => {
             
             <div className="space-y-6 mb-10">
               <p className="text-lg leading-relaxed text-gray-700">
-                <strong className="text-orange-700">Dora Abong'o</strong> brings together her rich heritage from <strong>Siaya, Kenya</strong>, and her life in <strong>Missouri</strong> through two extraordinary passions: capturing life's most precious moments and creating culinary experiences that tell stories across cultures.
+                {brandDescription}
               </p>
               <p className="text-lg leading-relaxed text-gray-700">
-                With over <strong className="text-orange-700">300,000 photographs</strong> from her travels and a mastery of both traditional African and international cuisine, Dora creates art that feeds both the eyes and the soul. Every dish is a celebration, every photograph a treasured memory.
+                With over <strong className="text-orange-700">{Number(photosCount).toLocaleString()} photographs</strong> from her travels and a mastery of both traditional African and international cuisine, Dora creates art that feeds both the eyes and the soul. Every dish is a celebration, every photograph a treasured memory.
               </p>
             </div>
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-6 mb-12">
               <div className="text-center p-4 bg-white/50 rounded-xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-orange-600 mb-1">300K+</div>
+                <div className="text-3xl font-bold text-orange-600 mb-1">{Number(photosCount).toLocaleString().replace(',', 'K+')} </div>
                 <div className="text-sm text-gray-600">Photos Captured</div>
               </div>
               <div className="text-center p-4 bg-white/50 rounded-xl backdrop-blur-sm">
-                <div className="text-3xl font-bold text-orange-600 mb-1">15+</div>
+                <div className="text-3xl font-bold text-orange-600 mb-1">{experienceYears}+</div>
                 <div className="text-sm text-gray-600">Years Experience</div>
               </div>
             </div>

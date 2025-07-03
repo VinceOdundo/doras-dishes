@@ -1,8 +1,17 @@
 
 import { Camera, ChefHat, ArrowRight, Star, Play } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { useGallery } from "@/hooks/useGallery";
 
 const Hero = () => {
+  const { getSetting } = useSiteSettings();
+  const { gallery } = useGallery(undefined, true);
+
+  const heroTitle = getSetting('hero_title', 'From Siaya to Missouri');
+  const heroSubtitle = getSetting('hero_subtitle', 'Discover authentic African cuisine and stunning photography by Dora Abong\'o. Where culinary tradition meets artistic vision.');
+  const photosCount = getSetting('hero_photos_count', '300000');
+
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 overflow-hidden">
       {/* Background Pattern */}
@@ -18,22 +27,27 @@ const Hero = () => {
           <div className="space-y-8 animate-fade-in">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full border border-orange-200">
               <Star className="w-4 h-4 text-orange-600 fill-current" />
-              <span className="text-sm font-medium text-gray-700">15+ Years of Culinary & Photography Excellence</span>
+              <span className="text-sm font-medium text-gray-700">{getSetting('brand_experience_years', '15')}+ Years of Culinary & Photography Excellence</span>
             </div>
             
             <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
-              From <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">Siaya</span> to <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">Missouri</span>
+              {heroTitle.split(' ').map((word, index) => 
+                index === 1 || index === 3 ? (
+                  <span key={index} className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">{word}</span>
+                ) : (
+                  <span key={index}> {word}</span>
+                )
+              )}
             </h1>
             
             <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-2xl">
-              Discover authentic African cuisine and stunning photography by <strong>Dora Abong'o</strong>. 
-              Where culinary tradition meets artistic vision.
+              {heroSubtitle}
             </p>
             
             <div className="flex items-center gap-6 text-lg text-gray-600">
               <div className="flex items-center gap-2">
                 <Camera className="w-6 h-6 text-orange-600" />
-                <span className="font-semibold">300K+ Photos</span>
+                <span className="font-semibold">{Number(photosCount).toLocaleString()}+ Photos</span>
               </div>
               <div className="flex items-center gap-2">
                 <ChefHat className="w-6 h-6 text-orange-600" />
@@ -65,65 +79,54 @@ const Hero = () => {
           {/* Right Content - Image Grid */}
           <div className="relative animate-scale-in" style={{ animationDelay: '0.3s' }}>
             <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-6">
-                <div className="relative group overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
-                  <img
-                    src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=500&fit=crop"
-                    alt="African cuisine"
-                    className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-6 left-6 text-white">
-                      <h3 className="text-xl font-bold mb-2">Traditional Luo Cuisine</h3>
-                      <p className="text-sm opacity-90">Authentic flavors from Siaya</p>
-                    </div>
+              {gallery.length > 0 ? (
+                <>
+                  <div className="space-y-6">
+                    {gallery.slice(0, 2).map((item, index) => (
+                      <div key={item.id} className="relative group overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
+                        <img
+                          src={item.image_url}
+                          alt={item.title}
+                          className={`w-full object-cover group-hover:scale-110 transition-transform duration-700 ${
+                            index === 0 ? 'h-80' : 'h-60'
+                          }`}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className={`absolute text-white ${index === 0 ? 'bottom-6 left-6' : 'bottom-4 left-4'}`}>
+                            <h3 className={`font-bold mb-2 ${index === 0 ? 'text-xl' : 'text-lg'}`}>{item.title}</h3>
+                            <p className={`opacity-90 ${index === 0 ? 'text-sm' : 'text-xs'}`}>{item.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-                
-                <div className="relative group overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
-                  <img
-                    src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=300&fit=crop"
-                    alt="Portrait photography"
-                    className="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-lg font-bold mb-1">Portrait Sessions</h3>
-                      <p className="text-xs opacity-90">Capturing life's moments</p>
-                    </div>
+                  
+                  <div className="space-y-6 pt-12">
+                    {gallery.slice(2, 4).map((item, index) => (
+                      <div key={item.id} className="relative group overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
+                        <img
+                          src={item.image_url}
+                          alt={item.title}
+                          className={`w-full object-cover group-hover:scale-110 transition-transform duration-700 ${
+                            index === 1 ? 'h-80' : 'h-60'
+                          }`}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <div className={`absolute text-white ${index === 1 ? 'bottom-6 left-6' : 'bottom-4 left-4'}`}>
+                            <h3 className={`font-bold mb-2 ${index === 1 ? 'text-xl' : 'text-lg'}`}>{item.title}</h3>
+                            <p className={`opacity-90 ${index === 1 ? 'text-sm' : 'text-xs'}`}>{item.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
+                </>
+              ) : (
+                // Fallback content if no gallery items
+                <div className="col-span-2 text-center py-20">
+                  <p className="text-gray-500">Gallery images loading...</p>
                 </div>
-              </div>
-              
-              <div className="space-y-6 pt-12">
-                <div className="relative group overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
-                  <img
-                    src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=400&h=300&fit=crop"
-                    alt="Wildlife photography"
-                    className="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h3 className="text-lg font-bold mb-1">Wildlife Collection</h3>
-                      <p className="text-xs opacity-90">Kenya's natural beauty</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="relative group overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 hover:-translate-y-2">
-                  <img
-                    src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=500&fit=crop"
-                    alt="Catering services"
-                    className="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-6 left-6 text-white">
-                      <h3 className="text-xl font-bold mb-2">Catering Services</h3>
-                      <p className="text-sm opacity-90">Events & celebrations</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
             
             {/* Floating CTA */}
