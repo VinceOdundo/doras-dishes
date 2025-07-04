@@ -19,10 +19,10 @@ const AdminNavigation = ({ activeTab, onTabChange }: AdminNavigationProps) => {
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`pb-2 px-1 border-b-2 font-medium text-sm transition-colors ${
+            className={`pb-3 px-2 border-b-2 font-medium text-sm transition-smooth hover:-translate-y-0.5 ${
               activeTab === tab.id
-                ? 'border-orange-600 text-orange-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                ? 'border-primary text-primary shadow-glow gradient-text'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-primary/30'
             }`}
           >
             {tab.label}

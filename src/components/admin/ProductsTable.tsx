@@ -16,10 +16,10 @@ interface ProductsTableProps {
 
 const ProductsTable = ({ products, onAddProduct }: ProductsTableProps) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border">
-      <div className="p-6 border-b flex items-center justify-between">
-        <h3 className="text-lg font-semibold">Manage Products</h3>
-        <Button className="bg-orange-600 hover:bg-orange-700" onClick={onAddProduct}>
+    <div className="bg-card rounded-xl shadow-large border hover:shadow-extra transition-smooth">
+      <div className="p-6 border-b border-border/50 flex items-center justify-between">
+        <h3 className="text-xl font-semibold gradient-text">Manage Products</h3>
+        <Button variant="premium" size="lg" onClick={onAddProduct} className="animate-glow-pulse">
           <Plus className="w-4 h-4 mr-2" />
           Add Product
         </Button>

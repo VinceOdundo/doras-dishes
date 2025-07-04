@@ -13,12 +13,13 @@ const Hero = () => {
   const photosCount = getSetting('hero_photos_count', '300000');
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-orange-100 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-64 h-64 border-2 border-orange-300 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-32 right-32 w-96 h-96 border-2 border-orange-300 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 border-2 border-orange-300 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+    <section className="relative min-h-screen bg-gradient-hero overflow-hidden">
+      {/* Enhanced Background Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-64 h-64 border-2 border-primary/30 rounded-full animate-glow-pulse"></div>
+        <div className="absolute bottom-32 right-32 w-96 h-96 border-2 border-accent/30 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-32 h-32 border-2 border-primary-glow/30 rounded-full animate-scale-in" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/3 right-1/4 w-48 h-48 bg-gradient-accent opacity-20 rounded-full blur-3xl animate-float" style={{ animationDelay: '0.5s' }}></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20">
@@ -30,46 +31,46 @@ const Hero = () => {
               <span className="text-sm font-medium text-gray-700">{getSetting('brand_experience_years', '15')}+ Years of Culinary & Photography Excellence</span>
             </div>
             
-            <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-5xl lg:text-7xl font-bold text-white leading-tight">
               {heroTitle.split(' ').map((word, index) => 
                 index === 1 || index === 3 ? (
-                  <span key={index} className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600">{word}</span>
+                  <span key={index} className="gradient-text bg-gradient-primary animate-gradient">{word}</span>
                 ) : (
                   <span key={index}> {word}</span>
                 )
               )}
             </h1>
             
-            <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed max-w-2xl">
+            <p className="text-xl lg:text-2xl text-white/90 leading-relaxed max-w-2xl animate-slide-up">
               {heroSubtitle}
             </p>
             
-            <div className="flex items-center gap-6 text-lg text-gray-600">
-              <div className="flex items-center gap-2">
-                <Camera className="w-6 h-6 text-orange-600" />
+            <div className="flex items-center gap-6 text-lg text-white/80 animate-fade-in" style={{animationDelay: '0.3s'}}>
+              <div className="flex items-center gap-2 hover:text-white transition-smooth">
+                <Camera className="w-6 h-6 text-primary animate-glow-pulse" />
                 <span className="font-semibold">{Number(photosCount).toLocaleString()}+ Photos</span>
               </div>
-              <div className="flex items-center gap-2">
-                <ChefHat className="w-6 h-6 text-orange-600" />
+              <div className="flex items-center gap-2 hover:text-white transition-smooth">
+                <ChefHat className="w-6 h-6 text-primary animate-float" />
                 <span className="font-semibold">Authentic Recipes</span>
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 animate-scale-in" style={{animationDelay: '0.5s'}}>
               <Link
                 to="/photography"
-                className="group inline-flex items-center justify-center gap-3 bg-orange-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-orange-700 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="group inline-flex items-center justify-center gap-3 bg-gradient-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-glow hover:-translate-y-1 transition-smooth shadow-large"
               >
-                <Camera className="w-6 h-6" />
+                <Camera className="w-6 h-6 group-hover:animate-float" />
                 Explore Photography
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
               
               <Link
                 to="/cooking-services"
-                className="group inline-flex items-center justify-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-gray-200"
+                className="group inline-flex items-center justify-center gap-3 glass border border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 hover:-translate-y-1 transition-smooth shadow-large"
               >
-                <ChefHat className="w-6 h-6 text-orange-600" />
+                <ChefHat className="w-6 h-6 text-primary group-hover:animate-float" />
                 Cooking Services
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>

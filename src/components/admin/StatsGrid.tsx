@@ -55,15 +55,15 @@ const StatsGrid = ({ stats, products, orders }: StatsGridProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {dashboardStats.map((stat, index) => (
-        <div key={index} className="bg-white p-6 rounded-xl shadow-sm border">
+        <div key={index} className="bg-card p-6 rounded-xl shadow-medium border hover:shadow-large transition-smooth hover:-translate-y-1 group">
           <div className="flex items-center">
-            <div className={`p-3 rounded-lg bg-gray-50 ${stat.color}`}>
-              <stat.icon className="w-6 h-6" />
+            <div className={`p-3 rounded-lg bg-gradient-primary shadow-glow ${stat.color} group-hover:animate-float`}>
+              <stat.icon className="w-6 h-6 text-white" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-              <p className="text-xs text-green-600">{stat.change}</p>
+              <p className="text-sm font-medium text-muted-foreground">{stat.label}</p>
+              <p className="text-2xl font-bold text-foreground group-hover:gradient-text transition-smooth">{stat.value}</p>
+              <p className="text-xs text-success">{stat.change}</p>
             </div>
           </div>
         </div>
